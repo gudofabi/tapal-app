@@ -45,6 +45,12 @@
         label: 'Loading...',
       }"
     >
+      <template #amount-data="{ row }">
+        PHP {{ formatMoney(row.amount) }}
+      </template>
+      <template #interest_amount-data="{ row }">
+        PHP {{ formatMoney(row.interest_amount) }}
+      </template>
       <template #status-data="{ row }">
         <UBadge
           size="xs"
@@ -234,6 +240,7 @@ const data_form = ref<Form>({
   amount: 0,
   loan_percentage: 0,
   date: new Date(),
+  status: "",
   agent_id: "",
   agent_percentage: 0,
   lead_generator_id: "",

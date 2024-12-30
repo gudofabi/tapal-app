@@ -4,6 +4,7 @@ export interface Form {
   amount: number;
   date: Date;
   loan_percentage: number;
+  status?: String;
   agent_id: String;
   agent_percentage: number;
   lead_generator_id: number | string;
