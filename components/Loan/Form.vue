@@ -52,6 +52,10 @@
           <AppDatePicker v-model="data_form.date" />
         </UFormGroup>
 
+        <UFormGroup label="Status" name="status" v-if="isEdit">
+          <USelect v-model="data_form.status" :options="data_statusOptions" />
+        </UFormGroup>
+
         <UDivider label="Agent" class="pt-4" />
 
         <UFormGroup label="Agent" name="agent">
@@ -112,6 +116,7 @@ const data_form = ref<Form>({
   amount: 0,
   date: new Date(),
   loan_percentage: 0,
+  status: "",
   agent_id: "",
   agent_percentage: 0,
   lead_generator_id: "",
@@ -122,6 +127,8 @@ const data_rules = computed(() => ({
   date: { required },
   loan_percentage: { required, numeric, minValue: minValue(0.01) },
 }));
+
+const data_statusOptions = ["Pending", "Completed"];
 
 watch(
   () => props.show,
@@ -150,6 +157,7 @@ const func_submitForm = async () => {
   const newData = {
     ...data_form.value,
     date: formatDate(data_form.value.date), // Format date to YYYY-MM-DD
+    status: props.isEdit ? data_form.value?.status?.toLowerCase() : "pending",
   };
 
   try {

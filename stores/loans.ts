@@ -1,6 +1,7 @@
 export const useLoanStore = defineStore("loanStore", () => {
   //   State
   const loanList = ref([]);
+  const loanData = ref({});
   const loanLoading = ref(false);
   const pagination = ref({
     currentPage: 1,
@@ -13,6 +14,9 @@ export const useLoanStore = defineStore("loanStore", () => {
   //   Getter
   const getLoans = computed(() => {
     return loanList.value ?? [];
+  });
+  const getLoanData = computed(() => {
+    return loanData.value ?? {};
   });
   const getPagination = computed(() => pagination.value);
   const getSearchQuery = computed(() => searchQuery.value);
@@ -32,6 +36,17 @@ export const useLoanStore = defineStore("loanStore", () => {
           perPage: meta.per_page,
           total: meta.total,
         };
+      })
+      .catch((err) => {})
+      .finally(() => (loanLoading.value = false));
+  };
+
+  const fetchLoanData = async ($transaction_no: string) => {
+    loanLoading.value = true;
+    return await useSanctumFetch(`/api/loans/${$transaction_no}`)
+      .then((response) => {
+        const { data } = response;
+        loanData.value = data;
       })
       .catch((err) => {})
       .finally(() => (loanLoading.value = false));
@@ -63,11 +78,13 @@ export const useLoanStore = defineStore("loanStore", () => {
 
   return {
     fetchLoans,
+    fetchLoanData,
     createLoan,
     updateLoan,
     deleteLoan,
     setSearchQuery,
     getLoans,
+    getLoanData,
     loanLoading,
     getPagination,
     getSearchQuery,
