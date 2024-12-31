@@ -157,7 +157,7 @@ const func_submitForm = async () => {
   const newData = {
     ...data_form.value,
     date: formatDate(data_form.value.date), // Format date to YYYY-MM-DD
-    status: data_form.value?.status?.toLowerCase(),
+    status: props.isEdit ? data_form.value?.status?.toLowerCase() : "pending",
   };
 
   try {
