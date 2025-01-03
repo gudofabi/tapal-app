@@ -34,10 +34,13 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: ["$guest"],
+});
 const { login } = useSanctum();
 const data_form = reactive({
-  email: "gudofabi@example.com",
-  password: "password",
+  email: "godofredocpanel@gmail.com",
+  password: "G0d0fred0",
 });
 
 const func_loginViaEmail = async () => {

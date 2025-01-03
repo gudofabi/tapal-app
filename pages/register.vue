@@ -41,6 +41,10 @@
   </div>
 </template>
 <script setup lang="ts">
+definePageMeta({
+  middleware: ["$guest"],
+});
+
 const authStore = useAuthStore();
 
 const data_form = reactive({
