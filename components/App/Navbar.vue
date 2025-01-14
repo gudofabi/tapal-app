@@ -112,7 +112,7 @@ const data_profileLinks = [
   {
     label: "Settings",
     icon: "i-heroicons-outline:cog",
-    to: "/settings",
+    to: "/settings/profile",
   },
   {
     label: "Logout",

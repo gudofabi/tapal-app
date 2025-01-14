@@ -64,7 +64,13 @@
 
 <script setup lang="ts">
 import type { Form } from "~/types/users";
-import { required, email, minLength, maxLength } from "@vuelidate/validators";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+  numeric,
+} from "@vuelidate/validators";
 const { $emitter } = useNuxtApp();
 
 // Store
@@ -91,6 +97,7 @@ const data_rules = computed(() => ({
     required,
     minLength: minLength(10), // Minimum of 10 digits
     maxLength: maxLength(10), // Maximum of 10 digits
+    numeric,
   },
   role: { required },
 }));
