@@ -25,6 +25,7 @@
             />
           </div>
           <UButton
+            v-if="comp_validateRole"
             icon="heroicons-outline:plus-sm"
             size="sm"
             color="primary"
@@ -75,7 +76,7 @@
             <template #panel="{ close }">
               <div class="p-2">
                 <UButton
-                  v-if="row.status == 'Pending'"
+                  v-if="comp_validateRole && row.status == 'Pending'"
                   block
                   :ui="{
                     block: 'w-full flex justify-start items-start',
@@ -87,7 +88,7 @@
                   icon="i-heroicons-outline:check"
                   @click="func_showConfirmModal(row, 'update')"
                 />
-                <UDivider v-if="row.status == 'Pending'" />
+                <UDivider v-if="comp_validateRole && row.status == 'Pending'" />
                 <UButton
                   block
                   :ui="{
@@ -100,7 +101,7 @@
                   :to="`/loans/${row.transaction_no}`"
                 />
                 <UButton
-                  v-if="row.status == 'Pending'"
+                  v-if="comp_validateRole && row.status == 'Pending'"
                   block
                   :ui="{
                     block: 'w-full flex justify-start items-start',
@@ -113,7 +114,7 @@
                   @click="func_showEditForm(row)"
                 />
                 <UButton
-                  v-if="row.status == 'Pending'"
+                  v-if="comp_validateRole && row.status == 'Pending'"
                   block
                   :ui="{
                     block: 'w-full flex justify-start items-start',
@@ -235,6 +236,8 @@ import type { Form } from "~/types/loan";
 const { debounce } = useDebounce();
 const { $emitter } = useNuxtApp();
 
+const { user } = useSanctum();
+
 definePageMeta({
   middleware: ["$auth"],
 });
@@ -299,6 +302,12 @@ onMounted(() => {
   loanStore.fetchLoans(data_currentPage.value);
 });
 
+// Computed
+
+const comp_validateRole = computed(() => {
+  return user.value?.role == "lender" || user.value?.role == "admin";
+});
+
 // ACTION
 const func_pageChange = (page: number) => {
   data_currentPage.value = page;
@@ -348,7 +357,7 @@ const handleAction = async (
     });
   } catch (err: any) {
     $emitter.emit("alert-notification", {
-      message: errorMessage || err?.response?.message,
+      message: errorMessage || err.response._data.message,
       alertType: "error",
       timeout: 3000,
       show: true,

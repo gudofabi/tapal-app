@@ -6,17 +6,9 @@
       <div><router-link to="/">TAPAL-KING</router-link></div>
       <div class="flex items-center">
         <UHorizontalNavigation
-          v-if="isLoggedIn"
-          :links="privateLinks"
+          :links="filteredLinks"
           :ui="{
             wrapper: 'w-auto',
-            base: 'px-4',
-          }"
-        />
-        <UHorizontalNavigation
-          v-else
-          :links="publicLinks"
-          :ui="{
             base: 'px-4',
           }"
         />
@@ -53,8 +45,67 @@ const func_logout = () => {
   logout();
 };
 
+// Profile computed property
 const comp_profile = computed(() => {
   return user ? user.name : "Profile";
+});
+
+// All links (public and private combined)
+const allLinks = [
+  {
+    label: "Loans",
+    icon: "i-heroicons-outline:clipboard-check",
+    to: "/loans",
+    private: true, // Only for authenticated users
+  },
+  // {
+  //   label: "Reports",
+  //   icon: "i-heroicons-chart-bar",
+  //   to: "/report",
+  //   private: true, // Only for authenticated users
+  // },
+  {
+    label: "Users",
+    icon: "i-heroicons-outline:users",
+    to: "/users",
+    private: true, // Only for authenticated users
+    adminOnly: true, // Visible only for admin role
+  },
+  {
+    label: "Login",
+    icon: "i-heroicons-outline:finger-print",
+    to: "/login",
+    private: false, // Public link
+  },
+  {
+    label: "Register",
+    icon: "i-heroicons-outline:lock-closed",
+    to: "/register",
+    private: false, // Public link
+  },
+];
+
+const filteredLinks = computed(() => {
+  if (!isLoggedIn.value) {
+    // Show only public links if the user is not logged in
+    return allLinks.filter((link) => !link.private);
+  }
+
+  // If logged in, filter links based on role
+  return allLinks.filter((link) => {
+    if (link.to === "/users") {
+      // Only show the Users page for admin or lender roles
+      return ["admin", "lender"].includes(user.value?.role);
+    }
+
+    // Exclude public links for logged-in users
+    if (!link.private) {
+      return false;
+    }
+
+    // Show all other private links
+    return true;
+  });
 });
 
 const data_profileLinks = [
@@ -67,37 +118,6 @@ const data_profileLinks = [
     label: "Logout",
     icon: "i-heroicons-outline:logout",
     click: func_logout,
-  },
-];
-
-const privateLinks = [
-  {
-    label: "Loans",
-    icon: "i-heroicons-outline:clipboard-check",
-    to: "/loans",
-  },
-  {
-    label: "Reports",
-    icon: "i-heroicons-chart-bar",
-    to: "/report",
-  },
-  {
-    label: "Users",
-    icon: "i-heroicons-outline:users",
-    to: "/users",
-  },
-];
-
-const publicLinks = [
-  {
-    label: "Login",
-    icon: "i-heroicons-outline:finger-print",
-    to: "/login",
-  },
-  {
-    label: "Register",
-    icon: "i-heroicons-outline:lock-closed",
-    to: "/register",
   },
 ];
 </script>

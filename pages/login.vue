@@ -39,8 +39,8 @@ definePageMeta({
 });
 const { login } = useSanctum();
 const data_form = reactive({
-  email: "godofredocpanel@gmail.com",
-  password: "G0d0fred0",
+  email: "",
+  password: "",
 });
 
 const func_loginViaEmail = async () => {

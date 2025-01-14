@@ -14,13 +14,53 @@
       <template #header>
         <h4 class="block uppercase font-bold">User Details</h4>
       </template>
+      <!-- User DETAILS -->
       <!-- LOAN DETAILS -->
-      <template #footer>
-        <div class="text-right">
-          <UButton to="/users" label="Back" color="gray" variant="soft" />
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-6"
+      >
+        <!-- Grid Item 1 -->
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Profile ID</span
+          >
+          <p>{{ func_ifEmpty(getUserData?.profile_id) }}</p>
         </div>
-      </template>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Amount</span
+          >
+          <p>{{ func_ifEmpty(getUserData?.name) }}</p>
+        </div>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Email</span
+          >
+          <p>{{ func_ifEmpty(getUserData?.email) }}</p>
+        </div>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Role</span
+          >
+          <p class="capitalize">{{ func_ifEmpty(getUserData?.role) }}</p>
+        </div>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Lend</span
+          >
+          <p class="capitalize">
+            {{
+              getUserData?.loans
+                ? func_ifEmpty(getUserData?.loans.length)
+                : "--"
+            }}
+          </p>
+        </div>
+      </div>
     </UCard>
+    <div class="text-right my-5">
+      <UButton to="/users" label="Back" color="gray" variant="solid" />
+    </div>
   </UContainer>
 </template>
 

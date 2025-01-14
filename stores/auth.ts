@@ -64,6 +64,13 @@ export const useAuthStore = defineStore("authStore", () => {
     return navigateTo("/login");
   };
 
+  const createUser = async ($params: any) => {
+    return await useSanctumFetch("/api/users", {
+      method: "post",
+      body: $params,
+    });
+  };
+
   const deleteUser = async ($id: number) => {
     return await useSanctumFetch(`/api/users/${$id}`, {
       method: "delete",
@@ -79,6 +86,7 @@ export const useAuthStore = defineStore("authStore", () => {
     fetchUsers,
     fetchUserData,
     setSearchQuery,
+    createUser,
     deleteUser,
     getUsers,
     getUserData,

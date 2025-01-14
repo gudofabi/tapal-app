@@ -4,8 +4,9 @@
     :icon="data_icons"
     :title="data_message"
     variant="soft"
-    color="primary"
+    :color="(data_alertType as any)"
     class="z-50 w-[400px] max-w-[600px] right-[1%] bottom-[3%] fixed shadow-lg"
+    :class="`bg-${data_alertType}-500 bg-opacity-5`"
   />
 </template>
 <script setup lang="ts">
@@ -18,7 +19,6 @@ const data_icons = ref("i-heroicons-command-line");
 
 onMounted(() => {
   $emitter.on("alert-notification", (e: any) => {
-    console.log(e);
     data_message.value = e.message;
     data_alertType.value = func_alertType(e.alertType);
     data_show.value = true;
