@@ -100,12 +100,10 @@
           <p>{{ func_ifEmpty(getLoanData?.lead_generator_percentage) }}%</p>
         </div>
       </div>
-      <template #footer>
-        <div class="text-right">
-          <UButton to="/loans" label="Back" color="gray" variant="soft" />
-        </div>
-      </template>
     </UCard>
+    <div class="text-right my-5">
+      <UButton to="/loans" label="Back" color="gray" variant="solid" />
+    </div>
   </UContainer>
 </template>
 

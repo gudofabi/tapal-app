@@ -23,6 +23,15 @@
               @click="func_clearSearch"
             />
           </div>
+          <UButton
+            icon="heroicons-outline:plus-sm"
+            size="sm"
+            color="primary"
+            variant="solid"
+            label="Add User"
+            trailing
+            @click="func_showCreateForm"
+          />
         </div>
       </template>
 
@@ -61,7 +70,7 @@
                   icon="i-heroicons-outline:eye"
                   :to="`/users/${row.profile_id}`"
                 />
-                <UButton
+                <!-- <UButton
                   block
                   :ui="{
                     block: 'w-full flex justify-start items-start',
@@ -72,7 +81,7 @@
                   label="Edit"
                   icon="i-heroicons-outline:pencil"
                   :to="`/users/${row.profile_id}?isEdit=${true}`"
-                />
+                /> -->
                 <UButton
                   block
                   :ui="{
@@ -101,6 +110,17 @@
         />
       </div>
     </UCard>
+
+    <UsersForm
+      :show="data_isOpenSlider"
+      :data="data_form"
+      @close="
+      (value: boolean) => {
+        data_isOpenSlider = value;
+      }
+    "
+    />
+
     <UModal v-model="data_showConfirmModal" prevent-close>
       <UCard
         :ui="{
@@ -116,7 +136,7 @@
                 name="heroicons-outline:exclamation"
               />
               <h3
-                class="text-base font-semibold text-orange-900 dark:text-orange-500"
+                class="text-base font-semibold text-orange-500 dark:text-orange-500"
               >
                 Warning
               </h3>
@@ -156,6 +176,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Form } from "~/types/user";
+
 definePageMeta({
   middleware: ["$auth"],
 });
@@ -196,13 +218,24 @@ const data_columns = [
   },
 ];
 const data_showConfirmModal = ref(false);
+const data_isOpenSlider = ref(false);
 const data_selectedUser = ref<any>(null);
+const data_form = ref<Form>({
+  name: "",
+  email: "",
+  contact_no: "",
+  role: "",
+});
 
 onMounted(() => {
   authStore.fetchUsers(data_currentPage.value);
 });
 
 // Methods
+const func_showCreateForm = () => {
+  data_isOpenSlider.value = !data_isOpenSlider.value;
+};
+
 const func_pageChange = (page: number) => {
   data_currentPage.value = page;
   authStore.fetchUsers(page);

@@ -7,7 +7,21 @@ const props = defineProps({
 });
 
 const form = ref();
-const v = useVuelidate(props.rules, props.model);
+let v = useVuelidate(props.rules, props.model);
+
+watch(
+  () => props.rules,
+  (newRules) => {
+    v = useVuelidate(newRules, props.model);
+  }
+);
+
+watch(
+  () => props.model,
+  (newModel) => {
+    v = useVuelidate(props.rules, newModel);
+  }
+);
 
 async function validateWithVuelidate() {
   v.value.$touch();
