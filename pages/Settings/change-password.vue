@@ -8,7 +8,7 @@
       :model="data_form"
     >
       <UFormGroup label="Old Password" name="old_password">
-        <UInput v-model="data_form.old_password" type="password" />
+        <UInput v-model="data_form.current_password" type="password" />
       </UFormGroup>
 
       <UFormGroup label="New Password" name="password">
@@ -35,21 +35,26 @@
 definePageMeta({
   layout: "settings",
 });
-
 import { required, sameAs, minLength, helpers } from "@vuelidate/validators";
+const { $emitter } = useNuxtApp();
+
+const { refreshUser, logout } = useSanctum();
+// Store
+const authStore = useAuthStore();
 
 const data_form = ref<any>({
-  old_password: "",
+  current_password: "",
   password: "",
   password_confirmation: "",
 });
+const data_loading = ref(false);
 
 const hasUpperCase = helpers.regex(/(?=.*[A-Z])/);
 const hasNumber = helpers.regex(/(?=.*\d)/);
 const hasSpecialCharacter = helpers.regex(/(?=.*[!@#$%^&*(),.?":{}|<>])/);
 
 const data_rules = computed(() => ({
-  old_password: { required },
+  current_password: { required },
   password: {
     required,
     minLength: minLength(8),
@@ -78,5 +83,27 @@ const func_update = async () => {
   if (!isValid) {
     return;
   }
+
+  data_loading.value = true;
+  authStore
+    .updatePassword(data_form.value)
+    .then((res) => {
+      $emitter.emit("alert-notification", {
+        message: "Password successfully updated...",
+        alertType: "success",
+        timeout: 3000,
+        show: true,
+      });
+      logout();
+    })
+    .catch((err) => {
+      $emitter.emit("alert-notification", {
+        message: err.response._data.message,
+        alertType: "error",
+        timeout: 3000,
+        show: true,
+      });
+    })
+    .finally(() => (data_loading.value = false));
 };
 </script>

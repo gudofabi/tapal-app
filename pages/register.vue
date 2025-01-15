@@ -2,23 +2,38 @@
   <div class="w-[900px] mx-auto flex flex-col">
     <UCard :ui="{ body: { base: 'grid grid-cols-3' } }">
       <div class="space-y-4">
-        <UFormGroup label="Name" name="name">
-          <UInput v-model="data_form.name" />
-        </UFormGroup>
+        <UtilsFormValidation
+          ref="formValidation"
+          :rules="data_rules"
+          :model="data_form"
+        >
+          <UFormGroup label="Name" name="name">
+            <UInput v-model="data_form.name" />
+          </UFormGroup>
 
-        <UFormGroup label="Email" name="email">
-          <UInput v-model="data_form.email" type="email" />
-        </UFormGroup>
+          <UFormGroup label="Email" name="email">
+            <UInput v-model="data_form.email" type="email" />
+          </UFormGroup>
 
-        <UFormGroup label="Password" name="password">
-          <UInput v-model="data_form.password" type="password" />
-        </UFormGroup>
+          <UFormGroup label="Password" name="password">
+            <UInput v-model="data_form.password" type="password" />
+          </UFormGroup>
 
-        <UFormGroup label="Password Confirmation" name="password_confirmation">
-          <UInput v-model="data_form.password_confirmation" type="password" />
-        </UFormGroup>
+          <UFormGroup
+            label="Password Confirmation"
+            name="password_confirmation"
+          >
+            <UInput v-model="data_form.password_confirmation" type="password" />
+          </UFormGroup>
 
-        <UButton label="Register" color="gray" block @click="func_register" />
+          <UButton
+            type="submit"
+            label="Register"
+            color="gray"
+            block
+            @click="func_register"
+          />
+        </UtilsFormValidation>
       </div>
 
       <UDivider label="OR" orientation="vertical" />
@@ -41,9 +56,19 @@
   </div>
 </template>
 <script setup lang="ts">
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  helpers,
+} from "@vuelidate/validators";
+
 definePageMeta({
   middleware: ["$guest"],
 });
+
+const { $emitter } = useNuxtApp();
 
 const authStore = useAuthStore();
 
@@ -54,7 +79,59 @@ const data_form = reactive({
   password_confirmation: "",
 });
 
+const hasUpperCase = helpers.regex(/(?=.*[A-Z])/);
+const hasNumber = helpers.regex(/(?=.*\d)/);
+const hasSpecialCharacter = helpers.regex(/(?=.*[!@#$%^&*(),.?":{}|<>])/);
+
+const data_rules = computed(() => ({
+  name: { required },
+  email: { required, email },
+  password: {
+    required,
+    minLength: minLength(8),
+    hasUppercase: helpers.withMessage(
+      "At least have a uppercase",
+      hasUpperCase
+    ),
+    hasNumber: helpers.withMessage("At least have a number", hasNumber),
+    hasSpecialCharacter: helpers.withMessage(
+      "At least have a special character",
+      hasSpecialCharacter
+    ),
+  },
+  password_confirmation: {
+    required,
+    sameAsPassword: sameAs(data_form.password, "Password must match"),
+  },
+}));
+
+// REF
+const formValidation = ref();
+
 const func_register = async () => {
-  authStore.register(data_form);
+  const isValid = await formValidation.value.validate();
+
+  if (!isValid) {
+    return;
+  }
+
+  authStore
+    .register(data_form)
+    .then((res: any) => {
+      $emitter.emit("alert-notification", {
+        message: "Verify your email first...",
+        alertType: "success",
+        timeout: 3000,
+        show: true,
+      });
+    })
+    .catch((err) => {
+      $emitter.emit("alert-notification", {
+        message: err.response._data.message,
+        alertType: "error",
+        timeout: 3000,
+        show: true,
+      });
+    });
 };
 </script>

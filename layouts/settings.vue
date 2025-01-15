@@ -26,6 +26,7 @@
         </div>
       </UCard>
     </UContainer>
+    <AppAlert />
   </div>
 </template>
 <script setup lang="ts">

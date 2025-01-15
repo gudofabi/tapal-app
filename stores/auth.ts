@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useAuthStore = defineStore("authStore", () => {
   // State
   const userList = ref([]);
+  const userListByRole = ref([]);
   const userData = ref({});
   const userLoading = ref(false);
   const pagination = ref({
@@ -17,6 +18,11 @@ export const useAuthStore = defineStore("authStore", () => {
   const getUsers = computed(() => {
     return userList.value ?? [];
   });
+
+  const getUsersByRole = computed(() => {
+    return userListByRole.value ?? [];
+  });
+
   const getUserData = computed(() => {
     return userData.value ?? {};
   });
@@ -54,6 +60,10 @@ export const useAuthStore = defineStore("authStore", () => {
       .finally(() => (userLoading.value = false));
   };
 
+  const fetchUserByRole = async ($role: string) => {
+    return await useSanctumFetch(`/api/users/role/${$role}`);
+  };
+
   const register = async ($params: any) => {
     const { refreshUser } = useSanctum();
     await useSanctumFetch("/api/register", {
@@ -71,6 +81,20 @@ export const useAuthStore = defineStore("authStore", () => {
     });
   };
 
+  const updateProfile = async ($params: any) => {
+    return await useSanctumFetch(`/api/user/profile-information`, {
+      method: "put",
+      body: $params,
+    });
+  };
+
+  const updatePassword = async ($params: any) => {
+    return await useSanctumFetch(`/api/user/password`, {
+      method: "put",
+      body: $params,
+    });
+  };
+
   const deleteUser = async ($id: number) => {
     return await useSanctumFetch(`/api/users/${$id}`, {
       method: "delete",
@@ -84,11 +108,15 @@ export const useAuthStore = defineStore("authStore", () => {
   return {
     register,
     fetchUsers,
+    fetchUserByRole,
     fetchUserData,
     setSearchQuery,
     createUser,
+    updateProfile,
+    updatePassword,
     deleteUser,
     getUsers,
+    getUsersByRole,
     getUserData,
     userLoading,
     getPagination,

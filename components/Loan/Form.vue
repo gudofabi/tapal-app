@@ -33,7 +33,7 @@
         :model="data_form"
       >
         <UFormGroup label="Amount" name="amount">
-          <UInput v-model="data_form.amount">
+          <UInput v-model="data_form.amount" placeholder="1000">
             <template #trailing>
               <span class="text-gray-500 dark:text-gray-400 text-xs">PHP</span>
             </template>
@@ -41,7 +41,7 @@
         </UFormGroup>
 
         <UFormGroup label="Loan Percentage" name="loan_percentage">
-          <UInput v-model="data_form.loan_percentage">
+          <UInput v-model="data_form.loan_percentage" placeholder="0.10">
             <template #trailing>
               <span class="text-gray-500 dark:text-gray-400 text-xs">%</span>
             </template>
@@ -59,11 +59,16 @@
         <UDivider label="Agent" class="pt-4" />
 
         <UFormGroup label="Agent" name="agent">
-          <USelect v-model="data_form.agent_id" :options="[]" />
+          <USelect
+            v-model="data_form.agent_id"
+            :options="data_agentOptions"
+            option-attribute="name"
+            placeholder="Select Agent..."
+          />
         </UFormGroup>
 
         <UFormGroup label="Percentage" name="percentage">
-          <UInput v-model="data_form.agent_percentage">
+          <UInput v-model="data_form.agent_percentage" placeholder="0.10">
             <template #trailing>
               <span class="text-gray-500 dark:text-gray-400 text-xs">%</span>
             </template>
@@ -73,11 +78,19 @@
         <UDivider label="Lead Generator" class="pt-4" />
 
         <UFormGroup label="Lead Generator" name="lead_generator">
-          <USelect v-model="data_form.lead_generator_id" :options="[]" />
+          <USelect
+            v-model="data_form.lead_generator_id"
+            :options="data_leadGeneratorOptions"
+            option-attribute="name"
+            placeholder="Select Lead Generator..."
+          />
         </UFormGroup>
 
         <UFormGroup label="Percentage" name="percentage">
-          <UInput v-model="data_form.lead_generator_percentage">
+          <UInput
+            v-model="data_form.lead_generator_percentage"
+            placeholder="0.10"
+          >
             <template #trailing>
               <span class="text-gray-500 dark:text-gray-400 text-xs">%</span>
             </template>
@@ -103,6 +116,7 @@ const { $emitter } = useNuxtApp();
 
 // Store
 const loanStore = useLoanStore();
+const authStore = useAuthStore();
 
 const emits = defineEmits(["close"]);
 const props = defineProps<{
@@ -113,14 +127,16 @@ const props = defineProps<{
 
 const data_show = ref(props.show);
 const data_form = ref<Form>({
-  amount: 0,
+  amount: null,
   date: new Date(),
-  loan_percentage: 0,
+  loan_percentage: null,
   status: "",
   agent_id: "",
-  agent_percentage: 0,
+  agent: null,
+  agent_percentage: null,
   lead_generator_id: "",
-  lead_generator_percentage: 0,
+  lead_generator: null,
+  lead_generator_percentage: null,
 });
 const data_rules = computed(() => ({
   amount: { required, numeric, minValue: minValue(5000) },
@@ -129,6 +145,8 @@ const data_rules = computed(() => ({
 }));
 
 const data_statusOptions = ["Pending", "Completed"];
+const data_agentOptions = ref([]);
+const data_leadGeneratorOptions = ref([]);
 
 watch(
   () => props.show,
@@ -139,10 +157,25 @@ watch(
 
 watch(
   () => props.data,
-  (value) => {
-    data_form.value = { ...value };
+  (data) => {
+    data_form.value = {
+      ...data,
+      lead_generator_id: data.lead_generator ? data.lead_generator?.id : null,
+      agent_id: data.agent ? data.agent?.id : null,
+    };
+
+    console.log(data_form.value);
   }
 );
+
+onMounted(async () => {
+  await authStore
+    .fetchUserByRole("agent")
+    .then((res) => (data_agentOptions.value = res.data));
+  await authStore
+    .fetchUserByRole("lead generator")
+    .then((res) => (data_leadGeneratorOptions.value = res.data));
+});
 
 // REF
 const formValidation = ref();
@@ -201,13 +234,15 @@ const handleError = (message: string) => {
 
 const func_closeForm = () => {
   data_form.value = {
-    amount: 0,
-    loan_percentage: 0,
+    amount: null,
+    loan_percentage: null,
     date: new Date(),
-    agent_id: "",
-    agent_percentage: 0,
-    lead_generator_id: "",
-    lead_generator_percentage: 0,
+    agent_id: null,
+    agent: null,
+    agent_percentage: null,
+    lead_generator_id: null,
+    lead_generator: null,
+    lead_generator_percentage: null,
   };
   emits("close", false);
 };

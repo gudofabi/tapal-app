@@ -2,15 +2,27 @@
   <div class="w-[900px] mx-auto flex flex-col">
     <UCard :ui="{ body: { base: 'grid grid-cols-3' } }">
       <div class="space-y-4">
-        <UFormGroup label="Email" name="email">
-          <UInput v-model="data_form.email" />
-        </UFormGroup>
+        <UtilsFormValidation
+          ref="formValidation"
+          :rules="data_rules"
+          :model="data_form"
+        >
+          <UFormGroup label="Email" name="email">
+            <UInput v-model="data_form.email" />
+          </UFormGroup>
 
-        <UFormGroup label="Password" name="password">
-          <UInput v-model="data_form.password" type="password" />
-        </UFormGroup>
+          <UFormGroup label="Password" name="password">
+            <UInput v-model="data_form.password" type="password" />
+          </UFormGroup>
 
-        <UButton label="Login" color="gray" block @click="func_loginViaEmail" />
+          <UButton
+            type="submit"
+            label="Login"
+            color="gray"
+            block
+            @click="func_loginViaEmail"
+          />
+        </UtilsFormValidation>
       </div>
 
       <UDivider label="OR" orientation="vertical" />
@@ -37,13 +49,51 @@
 definePageMeta({
   middleware: ["$guest"],
 });
+
+import { required, email } from "@vuelidate/validators";
+
+const { $emitter } = useNuxtApp();
+
 const { login } = useSanctum();
+
+// REF
+const formValidation = ref();
+
 const data_form = reactive({
   email: "",
   password: "",
 });
 
+const data_rules = computed(() => ({
+  email: { required, email },
+  password: {
+    required,
+  },
+}));
+
 const func_loginViaEmail = async () => {
-  await login(data_form);
+  const isValid = await formValidation.value.validate();
+
+  if (!isValid) {
+    return;
+  }
+
+  await login(data_form)
+    .then((res) => {
+      $emitter.emit("alert-notification", {
+        message: "Successfully Login!",
+        alertType: "success",
+        timeout: 3000,
+        show: true,
+      });
+    })
+    .catch((err) => {
+      $emitter.emit("alert-notification", {
+        message: err.response._data.message,
+        alertType: "error",
+        timeout: 3000,
+        show: true,
+      });
+    });
 };
 </script>
