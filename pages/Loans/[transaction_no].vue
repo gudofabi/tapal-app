@@ -81,6 +81,22 @@
           >
           <p>{{ func_ifEmpty(getLoanData?.agent_percentage) }}%</p>
         </div>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Amount</span
+          >
+          <p>
+            PHP
+            {{
+              formatMoney(
+                func_computeAmount(
+                  getLoanData?.interest_amount,
+                  getLoanData?.agent_percentage
+                )
+              )
+            }}
+          </p>
+        </div>
       </div>
       <UDivider label="Lead Generator" class="pb-8 pt-10" />
       <div
@@ -98,6 +114,22 @@
             >Percentage</span
           >
           <p>{{ func_ifEmpty(getLoanData?.lead_generator_percentage) }}%</p>
+        </div>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Amount</span
+          >
+          <p>
+            PHP
+            {{
+              formatMoney(
+                func_computeAmount(
+                  getLoanData?.interest_amount,
+                  getLoanData?.lead_generator_percentage
+                )
+              )
+            }}
+          </p>
         </div>
       </div>
     </UCard>
@@ -120,5 +152,12 @@ onMounted(() => {
 
 const func_ifEmpty = (value: any) => {
   return value ?? "--";
+};
+
+const func_computeAmount = (interest: number, percentage: number): number => {
+  const interestNum = Number(interest);
+  const percentageNum = Number(percentage);
+
+  return interestNum * percentageNum;
 };
 </script>
