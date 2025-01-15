@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useAuthStore = defineStore("authStore", () => {
   // State
   const userList = ref([]);
+  const userListByRole = ref([]);
   const userData = ref({});
   const userLoading = ref(false);
   const pagination = ref({
@@ -17,6 +18,11 @@ export const useAuthStore = defineStore("authStore", () => {
   const getUsers = computed(() => {
     return userList.value ?? [];
   });
+
+  const getUsersByRole = computed(() => {
+    return userListByRole.value ?? [];
+  });
+
   const getUserData = computed(() => {
     return userData.value ?? {};
   });
@@ -52,6 +58,10 @@ export const useAuthStore = defineStore("authStore", () => {
       })
       .catch((err) => {})
       .finally(() => (userLoading.value = false));
+  };
+
+  const fetchUserByRole = async ($role: string) => {
+    return await useSanctumFetch(`/api/users/role/${$role}`);
   };
 
   const register = async ($params: any) => {
@@ -98,6 +108,7 @@ export const useAuthStore = defineStore("authStore", () => {
   return {
     register,
     fetchUsers,
+    fetchUserByRole,
     fetchUserData,
     setSearchQuery,
     createUser,
@@ -105,6 +116,7 @@ export const useAuthStore = defineStore("authStore", () => {
     updatePassword,
     deleteUser,
     getUsers,
+    getUsersByRole,
     getUserData,
     userLoading,
     getPagination,

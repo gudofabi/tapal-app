@@ -73,7 +73,7 @@
           <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
             >Name</span
           >
-          <p>{{ func_ifEmpty(getLoanData?.agent) }}</p>
+          <p>{{ func_ifEmpty(getLoanData?.agent?.name) }}</p>
         </div>
         <div class="mb-3">
           <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
@@ -91,7 +91,7 @@
           <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
             >Name</span
           >
-          <p>{{ func_ifEmpty(getLoanData?.lead_generator) }}</p>
+          <p>{{ func_ifEmpty(getLoanData?.lead_generator?.name) }}</p>
         </div>
         <div class="mb-3">
           <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
