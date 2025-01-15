@@ -17,7 +17,9 @@
             color="white"
             variant="ghost"
             trailing-icon="i-heroicons-chevron-down-20-solid"
-            :label="user ? user.name : 'Profile'"
+            :label="
+              user ? `${user.name} (${user.role.toUpperCase()})` : 'Profile'
+            "
           >
             <template #leading>
               <UAvatar

@@ -44,9 +44,6 @@ definePageMeta({
   layout: "settings",
 });
 
-const { user } = useSanctum();
-
-import type { Form } from "~/types/user";
 import {
   required,
   email,
@@ -54,6 +51,11 @@ import {
   maxLength,
   numeric,
 } from "@vuelidate/validators";
+const { $emitter } = useNuxtApp();
+
+const { user, refreshUser } = useSanctum();
+// Store
+const authStore = useAuthStore();
 
 const data_form = ref<any>({
   name: "",
@@ -71,6 +73,8 @@ const data_rules = computed(() => ({
     maxLength: maxLength(10), // Maximum of 10 digits
   },
 }));
+
+const data_loading = ref(false);
 
 // REF
 const formValidation = ref();
@@ -93,5 +97,31 @@ const func_submitForm = async () => {
   if (!isValid) {
     return;
   }
+
+  const newData = {
+    ...data_form.value,
+    role: user.value?.role?.toLowerCase(),
+  };
+  data_loading.value = true;
+  authStore
+    .updateProfile(user.value.id, newData)
+    .then((res) => {
+      $emitter.emit("alert-notification", {
+        message: "Details successfully updated...",
+        alertType: "success",
+        timeout: 3000,
+        show: true,
+      });
+      refreshUser();
+    })
+    .catch((err) => {
+      $emitter.emit("alert-notification", {
+        message: err.response._data.message,
+        alertType: "error",
+        timeout: 3000,
+        show: true,
+      });
+    })
+    .finally(() => (data_loading.value = false));
 };
 </script>

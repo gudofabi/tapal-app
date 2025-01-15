@@ -71,6 +71,20 @@ export const useAuthStore = defineStore("authStore", () => {
     });
   };
 
+  const updateProfile = async ($params: any) => {
+    return await useSanctumFetch(`/api/user/profile-information`, {
+      method: "put",
+      body: $params,
+    });
+  };
+
+  const updatePassword = async ($params: any) => {
+    return await useSanctumFetch(`/api/user/password`, {
+      method: "put",
+      body: $params,
+    });
+  };
+
   const deleteUser = async ($id: number) => {
     return await useSanctumFetch(`/api/users/${$id}`, {
       method: "delete",
@@ -87,6 +101,8 @@ export const useAuthStore = defineStore("authStore", () => {
     fetchUserData,
     setSearchQuery,
     createUser,
+    updateProfile,
+    updatePassword,
     deleteUser,
     getUsers,
     getUserData,
