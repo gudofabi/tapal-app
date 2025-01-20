@@ -36,7 +36,21 @@
           <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
             >Email</span
           >
-          <p>{{ func_ifEmpty(getUserData?.email) }}</p>
+          <p>
+            <a :href="`mailto:${getUserData?.email}`">
+              {{ func_ifEmpty(getUserData?.email) }}
+            </a>
+          </p>
+        </div>
+        <div class="mb-3">
+          <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
+            >Contact Number</span
+          >
+          <p>
+            <a :href="`tel:+63${getUserData?.contact_no}`">
+              +63 {{ func_ifEmpty(getUserData?.contact_no) }}
+            </a>
+          </p>
         </div>
         <div class="mb-3">
           <span class="block uppercase text-xs font-semibold text-gray-400 pb-2"
@@ -49,11 +63,7 @@
             >Lend</span
           >
           <p class="capitalize">
-            {{
-              getUserData?.loans
-                ? func_ifEmpty(getUserData?.loans.length)
-                : "--"
-            }}
+            {{ getUserData?.loans ? func_ifEmpty(getUserData?.loans.length) : "--" }}
           </p>
         </div>
       </div>

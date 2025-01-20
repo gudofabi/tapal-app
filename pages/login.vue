@@ -16,6 +16,7 @@
           </UFormGroup>
 
           <UButton
+            :loading="data_loading"
             type="submit"
             label="Login"
             color="gray"
@@ -59,6 +60,7 @@ const { login } = useSanctum();
 // REF
 const formValidation = ref();
 
+const data_loading = ref(false);
 const data_form = reactive({
   email: "",
   password: "",
@@ -77,7 +79,7 @@ const func_loginViaEmail = async () => {
   if (!isValid) {
     return;
   }
-
+  data_loading.value = true;
   await login(data_form)
     .then((res) => {
       $emitter.emit("alert-notification", {
@@ -94,6 +96,7 @@ const func_loginViaEmail = async () => {
         timeout: 3000,
         show: true,
       });
-    });
+    })
+    .finally(() => (data_loading.value = true));
 };
 </script>

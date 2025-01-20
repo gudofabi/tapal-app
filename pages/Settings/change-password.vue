@@ -21,6 +21,7 @@
 
       <div class="text-right pt-6">
         <UButton
+          :loading="data_loading"
           label="Update Password"
           color="primary"
           type="submit"

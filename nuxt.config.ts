@@ -1,11 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
+
   devServer: {
     host: "tapal.test",
+    port: 3000,
   },
+
   modules: ["@nuxt/ui", "@qirolab/nuxt-sanctum-authentication", "@pinia/nuxt"],
+
   laravelSanctum: {
     // Replace with your Laravel API URL
     apiUrl: "http://api.tapal.test",
@@ -71,4 +74,6 @@ export default defineNuxtConfig({
       redirectToAfterLogout: "/login",
     },
   },
+
+  compatibilityDate: "2025-01-20",
 });

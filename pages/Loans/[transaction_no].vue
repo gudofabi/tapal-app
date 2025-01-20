@@ -132,6 +132,31 @@
           </p>
         </div>
       </div>
+      <UDivider class="pb-8 pt-10" />
+      <div class="flex justify-between w-full">
+        <!-- Grid Item 1 -->
+        <div class="mb-3">
+          <h2>Total Interest Amount:</h2>
+        </div>
+        <div class="mb-3">
+          <h2 class="text-xl font-semibold text-green-500">
+            PHP
+            {{
+              func_computeTotalInterestAmount(
+                func_computeAmount(
+                  getLoanData?.interest_amount,
+                  getLoanData?.agent_percentage
+                ),
+                func_computeAmount(
+                  getLoanData?.interest_amount,
+                  getLoanData?.lead_generator_percentage
+                ),
+                getLoanData?.interest_amount
+              )
+            }}
+          </h2>
+        </div>
+      </div>
     </UCard>
     <div class="text-right my-5">
       <UButton to="/loans" label="Back" color="gray" variant="solid" />
@@ -159,5 +184,15 @@ const func_computeAmount = (interest: number, percentage: number): number => {
   const percentageNum = Number(percentage);
 
   return interestNum * percentageNum;
+};
+
+const func_computeTotalInterestAmount = (
+  agentInterest: number,
+  leadGenInterest: number,
+  initialInterestAmount: number
+) => {
+  const interest = agentInterest + leadGenInterest;
+  console.log(interest);
+  return formatMoney(initialInterestAmount - interest);
 };
 </script>
