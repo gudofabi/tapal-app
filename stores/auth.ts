@@ -83,7 +83,7 @@ export const useAuthStore = defineStore("authStore", () => {
 
   const updateProfile = async ($params: any) => {
     return await useSanctumFetch(`/api/user/profile-information`, {
-      method: "put",
+      method: "patch",
       body: $params,
     });
   };

@@ -97,11 +97,21 @@
           </UInput>
         </UFormGroup>
         <div class="text-right pt-6">
-          <UButton v-if="!isEdit" type="submit" @click="func_submitForm">
-            Submit
+          <UButton
+            v-if="!isEdit"
+            type="submit"
+            @click="func_submitForm"
+            :loading="data_loading"
+          >
+            {{ data_loading ? "Loading..." : "Submit" }}
           </UButton>
-          <UButton v-else type="submit" @click="func_submitForm">
-            Update
+          <UButton
+            v-else
+            type="submit"
+            @click="func_submitForm"
+            :loading="data_loading"
+          >
+            {{ data_loading ? "Loading..." : "Update" }}
           </UButton>
         </div>
       </UtilsFormValidation>
@@ -126,6 +136,7 @@ const props = defineProps<{
 }>();
 
 const data_show = ref(props.show);
+const data_loading = ref(false);
 const data_form = ref<Form>({
   amount: null,
   date: new Date(),
@@ -182,7 +193,7 @@ const formValidation = ref();
 
 const func_submitForm = async () => {
   const isValid = await formValidation.value.validate();
-
+  data_loading.value = true;
   if (!isValid) {
     return;
   }
@@ -201,6 +212,8 @@ const func_submitForm = async () => {
     handleSuccess(response?.message || "Operation successful");
   } catch (error: any) {
     handleError(error?.response?.message || "An error occurred");
+  } finally {
+    data_loading.value = false;
   }
 };
 

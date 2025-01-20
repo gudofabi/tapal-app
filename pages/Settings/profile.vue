@@ -31,7 +31,7 @@
       </div>
 
       <div class="text-right pt-6">
-        <UButton type="submit" @click="func_submitForm">
+        <UButton type="submit" @click="func_submitForm" :loading="data_loading">
           Update Profile
         </UButton>
       </div>

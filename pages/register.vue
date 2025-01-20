@@ -27,6 +27,7 @@
           </UFormGroup>
 
           <UButton
+            :loading="data_loading"
             type="submit"
             label="Register"
             color="gray"
@@ -78,6 +79,7 @@ const data_form = reactive({
   password: "",
   password_confirmation: "",
 });
+const data_loading = ref(false);
 
 const hasUpperCase = helpers.regex(/(?=.*[A-Z])/);
 const hasNumber = helpers.regex(/(?=.*\d)/);
@@ -132,6 +134,7 @@ const func_register = async () => {
         timeout: 3000,
         show: true,
       });
-    });
+    })
+    .finally(() => (data_loading.value = true));
 };
 </script>
