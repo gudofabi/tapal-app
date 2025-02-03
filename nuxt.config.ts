@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   devServer: {
-    host: "tapal.test",
+    host: process.env.VITE_HOST_URL,
     port: 3000,
   },
 
@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   laravelSanctum: {
     // Replace with your Laravel API URL
-    apiUrl: "http://api.tapal.test",
+    apiUrl: process.env.VITE_MIDDLEWARE_URL,
     authMode: "cookie",
     sanctumEndpoints: {
       /**
