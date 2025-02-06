@@ -3,7 +3,7 @@
     <UContainer
       class="container mx-auto flex justify-between items-center py-3 w-full"
     >
-      <div><router-link to="/">TAPAL-KING</router-link></div>
+      <div><router-link to="/">TAPWAL</router-link></div>
       <div class="flex items-center">
         <UHorizontalNavigation
           :links="filteredLinks"

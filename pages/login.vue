@@ -1,6 +1,7 @@
 <template>
-  <div class="w-[900px] mx-auto flex flex-col">
-    <UCard :ui="{ body: { base: 'grid grid-cols-3' } }">
+  <div class="w-[300px] mx-auto flex flex-col">
+    <!-- <UCard :ui="{ body: { base: 'grid grid-cols-3' } }"> -->
+    <UCard>
       <div class="space-y-4">
         <UtilsFormValidation
           ref="formValidation"
@@ -26,7 +27,7 @@
         </UtilsFormValidation>
       </div>
 
-      <UDivider label="OR" orientation="vertical" />
+      <!-- <UDivider label="OR" orientation="vertical" />
 
       <div class="space-y-4 flex flex-col justify-center">
         <UButton
@@ -41,7 +42,7 @@
           icon="i-simple-icons-google"
           block
         />
-      </div>
+      </div> -->
     </UCard>
   </div>
 </template>
@@ -97,6 +98,6 @@ const func_loginViaEmail = async () => {
         show: true,
       });
     })
-    .finally(() => (data_loading.value = true));
+    .finally(() => (data_loading.value = false));
 };
 </script>
