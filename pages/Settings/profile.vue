@@ -104,7 +104,7 @@ const func_submitForm = async () => {
   };
   data_loading.value = true;
   authStore
-    .updateProfile(user.value.id, newData)
+    .updateProfile(newData)
     .then((res) => {
       $emitter.emit("alert-notification", {
         message: "Details successfully updated...",
