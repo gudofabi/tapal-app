@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Outfit&display=swap");
+
+// Body
+
+html,
+body {
+  @apply font-outfit;
+}
+
+.header {
+  @apply text-5xl font-dm-serif leading-[56px];
+}
+
+.label {
+  @apply text-primary text-sm uppercase font-semibold mb-2 block;
+}
+
+.desc {
+  @apply text-base leading-[26px] block;
+}
+
+.carousel__viewport {
+  @apply pt-5 pb-20;
+}
+
+.carousel__slide {
+  @apply scale-100 rounded-2xl h-[398px] bg-[#FAFAFA] drop-shadow-card mr-2;
+}
+
+.carousel__slide--active {
+  @apply scale-110 bg-gradient-to-b from-primary to-[#005331] drop-shadow-active;
+}
+
+.carousel__slide--active .card-slider {
+  @apply text-white;
+
+  span {
+    @apply text-secondary;
+  }
+
+  p {
+    @apply text-white;
+  }
+}
+.slide-control {
+  @apply relative;
+}
+
+.slide-control span {
+  @apply text-gray-400 w-8 h-8 hover:w-12 hover:h-12 hover:text-primary transition-all delay-100 absolute;
+}
+
+.slide-control.prev {
+}
+
+.slide-control.next {
+}

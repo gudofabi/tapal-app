@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-white dark:bg-gray-900 shadow-md">
+  <div class="bg-white dark:bg-gray-900">
     <UContainer
       class="container mx-auto flex justify-between items-center py-3 w-full"
     >
-      <div><router-link to="/">TAPWAL</router-link></div>
+      <div>
+        <router-link to="/" class="font-dm-serif text-xl">Tapwal</router-link>
+      </div>
       <div class="flex items-center">
         <UHorizontalNavigation
           :links="filteredLinks"

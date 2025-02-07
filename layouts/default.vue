@@ -1,7 +1,7 @@
 <template>
-  <main class="h-svh bg-slate-100 dark:bg-gray-800 relative">
+  <main class="h-svh bg-white dark:bg-gray-800 relative">
     <AppNavbar />
-    <div class="container mx-auto py-10">
+    <div class="container mx-auto">
       <div class="h-full">
         <slot />
       </div>
