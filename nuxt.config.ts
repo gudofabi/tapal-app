@@ -2,12 +2,29 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  css: ["~/assets/scss/main.scss"],
+
+  app: {
+    head: {
+      script: [{ src: "https://unpkg.com/@phosphor-icons/web@2.1.1" }],
+    },
+  },
+
   devServer: {
     host: process.env.VITE_HOST_URL,
     port: 3000,
   },
 
-  modules: ["@nuxt/ui", "@qirolab/nuxt-sanctum-authentication", "@pinia/nuxt"],
+  modules: [
+    "@nuxt/ui",
+    "@qirolab/nuxt-sanctum-authentication",
+    "@pinia/nuxt",
+    "vue3-carousel-nuxt",
+  ],
+
+  carousel: {
+    prefix: "Tapwal",
+  },
 
   laravelSanctum: {
     // Replace with your Laravel API URL
