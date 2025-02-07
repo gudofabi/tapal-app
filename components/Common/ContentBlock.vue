@@ -10,9 +10,8 @@
       v-if="header"
       class="header mb-6"
       :class="[textWhite ? '!text-white' : 'text-black']"
-    >
-      {{ header }}
-    </h1>
+      v-html="header"
+    ></h1>
     <p
       v-if="description"
       class="desc mb-10"

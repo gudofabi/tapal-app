@@ -8,15 +8,15 @@ body {
 }
 
 .header {
-  @apply text-5xl font-dm-serif leading-[56px];
+  @apply text-5xl font-dm-serif leading-[56px] dark:text-white;
 }
 
 .label {
-  @apply text-primary text-sm uppercase font-semibold mb-2 block;
+  @apply text-primary dark:text-secondary text-base uppercase font-semibold mb-2 block;
 }
 
 .desc {
-  @apply text-base leading-[26px] block;
+  @apply text-lg leading-[26px] block dark:text-white;
 }
 
 .carousel__viewport {
@@ -24,11 +24,11 @@ body {
 }
 
 .carousel__slide {
-  @apply scale-100 rounded-2xl h-[398px] bg-[#FAFAFA] drop-shadow-card mr-2;
+  @apply scale-100 rounded-2xl h-[398px] bg-[#FAFAFA] dark:bg-white drop-shadow-card dark:drop-shadow-dark-card mr-2;
 }
 
 .carousel__slide--active {
-  @apply scale-110 bg-gradient-to-b from-primary to-[#005331] drop-shadow-active;
+  @apply scale-110 bg-gradient-to-b from-primary to-[#005331] drop-shadow-active dark:drop-shadow-dark-card-active transition-all delay-300;
 }
 
 .carousel__slide--active .card-slider {
@@ -36,6 +36,10 @@ body {
 
   span {
     @apply text-secondary;
+  }
+
+  h3 {
+    @apply text-white;
   }
 
   p {
