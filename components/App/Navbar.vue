@@ -1,10 +1,13 @@
 <template>
-  <div class="bg-white dark:bg-gray-900">
+  <div class="bg-white dark:bg-gray-800">
     <UContainer
-      class="container mx-auto flex justify-between items-center py-3 w-full"
+      class="container mx-auto flex justify-between items-center py-10 w-full"
     >
       <div>
-        <router-link to="/" class="font-dm-serif text-xl">Tapwal</router-link>
+        <router-link to="/" class="font-dm-serif text-4xl relative"
+          >Tapwal
+          <span class="text-xl absolute ml-1 font-outfit">™</span></router-link
+        >
       </div>
       <div class="flex items-center">
         <UHorizontalNavigation
