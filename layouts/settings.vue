@@ -1,6 +1,6 @@
 <template>
   <AppNavbar />
-  <div class="h-svh bg-slate-100 dark:bg-gray-800 relative">
+  <div class="h-full md:h-screen bg-white dark:bg-gray-800 relative">
     <UContainer class="py-10">
       <UBreadcrumb
         class="mb-8"
@@ -12,11 +12,13 @@
         ]"
       />
       <UCard>
-        <div class="flex min-h-[600px]">
+        <div class="flex flex-col md:flex-row md:min-h-[600px]">
           <UVerticalNavigation
             :links="links"
             :ui="{
+              wrapper: 'mb-10',
               base: 'py-3',
+              active: 'border-l-2 border-primary',
             }"
           />
           <UDivider orientation="vertical" class="mx-4" />

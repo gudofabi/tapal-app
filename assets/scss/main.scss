@@ -8,7 +8,7 @@ body {
 }
 
 .header {
-  @apply text-5xl font-dm-serif leading-[56px] dark:text-white;
+  @apply text-4xl md:text-5xl font-dm-serif leading-[45px] xl:leading-[56px] dark:text-white;
 }
 
 .label {
@@ -16,7 +16,7 @@ body {
 }
 
 .desc {
-  @apply text-lg leading-[26px] block dark:text-white;
+  @apply text-base sm:text-lg leading-[26px] block dark:text-white;
 }
 
 .carousel__viewport {
@@ -24,7 +24,7 @@ body {
 }
 
 .carousel__slide {
-  @apply scale-100 rounded-2xl h-[398px] bg-[#FAFAFA] dark:bg-white drop-shadow-card dark:drop-shadow-dark-card mr-2;
+  @apply scale-100 rounded-2xl md:h-[398px] bg-[#FAFAFA] dark:bg-white drop-shadow-card dark:drop-shadow-dark-card mr-2;
 }
 
 .carousel__slide--active {

@@ -1,10 +1,10 @@
 <template>
   <div class="bg-white dark:bg-gray-800">
     <UContainer
-      class="container mx-auto flex justify-between items-center py-10 w-full"
+      class="container mx-auto flex justify-between items-center py-5 md:py-10 w-full"
     >
       <div>
-        <router-link to="/" class="font-dm-serif text-4xl relative"
+        <router-link to="/" class="font-dm-serif text-2xl md:text-4xl relative"
           >Tapwal
           <span class="text-xl absolute ml-1 font-outfit">™</span></router-link
         >
@@ -13,11 +13,31 @@
         <UHorizontalNavigation
           :links="filteredLinks"
           :ui="{
-            wrapper: 'w-auto',
-            base: 'px-4',
+            wrapper: 'w-auto hidden md:block',
+            base: 'px-4 text-base hover:before:bg-transparent',
           }"
         />
-        <UPopover v-if="isLoggedIn">
+        <UButton
+          color="gray"
+          variant="ghost"
+          aria-label="Theme"
+          @click="isDark = !isDark"
+          size="sm"
+          class="mr-1"
+        >
+          <UIcon
+            :name="
+              isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'
+            "
+            class="text-xl"
+          />
+        </UButton>
+        <UIcon
+          name="i-heroicons-outline:menu-alt-1"
+          class="text-3xl md:hidden"
+          @click="data_navShow = !data_navShow"
+        />
+        <UPopover v-if="isLoggedIn" class="hidden md:block">
           <UButton
             color="white"
             variant="ghost"
@@ -43,10 +63,80 @@
       </div>
     </UContainer>
   </div>
+  <USlideover v-model="data_navShow">
+    <UCard
+      class="flex flex-col flex-1"
+      :ui="{
+        body: { base: 'flex-1' },
+        ring: '',
+        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+      }"
+    >
+      <template #header>
+        <div class="flex items-center justify-between">
+          <router-link
+            to="/"
+            class="font-dm-serif text-2xl md:text-4xl relative"
+            >Tapwal
+            <span class="text-xl absolute ml-1 font-outfit"
+              >™</span
+            ></router-link
+          >
+          <UButton
+            color="gray"
+            variant="ghost"
+            icon="i-heroicons-x-mark-20-solid"
+            class="-my-1"
+            @click="data_navShow = !data_navShow"
+          />
+        </div>
+      </template>
+      <div class="flex items-center gap-x-3 px-3 pb-3" v-if="isLoggedIn">
+        <UAvatar
+          src="https://avatars.githubusercontent.com/u/739984?v=4"
+          size="sm"
+        />
+        <p>{{ user.name }} ({{ user.role.toUpperCase() }})</p>
+      </div>
+      <UVerticalNavigation
+        :links="filteredLinks"
+        :ui="{
+          base: 'py-4 text-base hover:before:bg-transparent',
+        }"
+      />
+      <UVerticalNavigation
+        v-if="isLoggedIn"
+        :links="data_profileLinks"
+        :ui="{
+          base: 'py-4 text-base hover:before:bg-transparent',
+        }"
+      />
+    </UCard>
+  </USlideover>
 </template>
 
 <script setup lang="ts">
 const { isLoggedIn, user, logout } = useSanctum();
+
+const route = useRoute();
+
+const colorMode = useColorMode();
+const isDark = computed({
+  get() {
+    return colorMode.value === "dark";
+  },
+  set() {
+    colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+  },
+});
+const data_navShow = ref(false);
+
+watch(
+  () => route.path,
+  (data) => {
+    data_navShow.value = false;
+  }
+);
 
 const func_logout = () => {
   logout();
