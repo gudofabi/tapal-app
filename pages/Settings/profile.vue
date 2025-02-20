@@ -40,6 +40,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: "Profile | Settings",
+  ogTitle: "Profile",
+});
+
 definePageMeta({
   layout: "settings",
 });

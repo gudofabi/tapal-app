@@ -5,7 +5,7 @@
     :title="data_message"
     variant="soft"
     :color="(data_alertType as any)"
-    class="z-50 w-[400px] max-w-[600px] right-[1%] bottom-[3%] fixed shadow-lg"
+    class="z-50 w-[90%] md:w-[400px] md:max-w-[600px] md:mx-0 right-[3%] md:right-[1%] bottom-[3%] fixed shadow-lg"
     :class="`bg-${data_alertType}-500 bg-opacity-5`"
   />
 </template>

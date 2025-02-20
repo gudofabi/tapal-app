@@ -1,5 +1,5 @@
 <template>
-  <main class="h-full md:h-screen bg-white dark:bg-gray-800 relative">
+  <main class="relative">
     <AppNavbar />
     <div class="container mx-auto">
       <div class="h-full md:h-screen">

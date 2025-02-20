@@ -50,6 +50,13 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: "Login | Tapwal",
+  ogTitle: "Login",
+  description: "Tapwal login page, where you can access your account.",
+  ogDescription: "Tapwal login page, where you can access your account.",
+});
+
 definePageMeta({
   middleware: ["$guest"],
 });
