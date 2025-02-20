@@ -68,12 +68,30 @@ const carouselRef = ref();
 const data_currentSlide = ref(1);
 
 const data_carouselConfig = {
-  itemsToShow: 2.5,
   gap: 25,
-  snapAlign: "start",
-  autoplay: 5000,
+  // autoplay: 5000,
   wrapAround: true,
   pauseAutoplayOnHover: true,
+  // breakpointMode: "carousel",
+  breakpoints: {
+    1300: {
+      snapAlign: "start",
+      itemsToShow: 2.5,
+    },
+    1000: {
+      snapAlign: "start",
+      itemsToShow: 2,
+    },
+    500: {
+      itemsToShow: 2.3,
+      snapAlign: "start",
+    },
+    // 300px and up
+    300: {
+      itemsToShow: 1.4,
+      snapAlign: "start",
+    },
+  },
 };
 
 const func_next = () => carouselRef.value.next();

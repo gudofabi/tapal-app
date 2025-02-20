@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/2">
+  <div class="w-full md:w-1/2">
     <h1>Change Password</h1>
     <UDivider class="my-4" />
     <UtilsFormValidation

@@ -1,8 +1,10 @@
 <template>
-  <div class="card-slider p-8 flex flex-col gap-y-4 justify-center items-start">
-    <span class="text-4xl dark:text-black" :class="icon"></span>
+  <div
+    class="card-slider p-6 pb-12 md:p-8 flex flex-col gap-y-2 md:gap-y-4 justify-center items-start"
+  >
+    <span class="text-3xl md:text-4xl dark:text-black" :class="icon"></span>
     <h3 class="text-xl font-dm-serif dark:text-black">{{ label }}</h3>
-    <p class="text-[#636363]">{{ description }}</p>
+    <p class="text-sm sm:text-base text-[#636363]">{{ description }}</p>
   </div>
 </template>
 

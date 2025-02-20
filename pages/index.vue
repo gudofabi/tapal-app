@@ -1,67 +1,70 @@
 <template>
-  <UContainer class="!px-0 pb-10">
+  <UContainer class="!px-0 pb-10 pt-12 md:pt-0">
     <div class="relative">
-      <div class="relative grid grid-cols-2 gap-11 z-10">
-        <div class="content pl-10 pr-28 flex flex-col justify-evenly">
+      <div class="relative grid md:grid-cols-2 gap-11 z-10">
+        <div
+          class="content px-10 sm:px-16 pt-10 md:pt-0 md:pl-20 xl:pl-10 sm:pr-40 md:pr-0 xl:pr-28 flex flex-col justify-evenly"
+        >
           <div class="hero-text">
             <CommonContentBlock
               :text-white="true"
               header="A sleek and modern portfolio to showcase your best work."
+              header-class="!leading-[40px] md:!leading-[56px]"
               description="Built for developers and creatives to highlight their projects in a simple, elegant way."
             />
             <a
               href="#features"
-              class="rounded-lg font-dm-serif text-sm bg-secondary hover:bg-[#f3c600] transition-colors delay-100 text-black px-6 py-3 inline"
+              class="hidden md:inline rounded-lg font-dm-serif text-sm bg-secondary hover:bg-[#f3c600] transition-colors delay-100 text-black px-6 py-3"
               >Learn more
             </a>
           </div>
-          <div class="logos">
-            <ul class="flex gap-x-10 items-center">
+          <div class="logos py-5 md:py-0 md:mt-10">
+            <ul class="flex gap-x-2 md:gap-x-10 items-center">
               <li>
                 <img
                   src="/img/laravel.svg"
                   alt="Laravel Logo"
-                  class="cursor-pointer grayscale hover:grayscale-0 transition-all delay-100 w-auto h-auto"
+                  class="cursor-pointer grayscale hover:grayscale-0 dark:brightness-0 dark:invert-[1] dark:hover:invert-0 dark:hover:brightness-100 transition-all delay-100 w-[80%] md:w-auto h-auto"
                 />
               </li>
               <li>
                 <img
                   src="/img/nuxt.svg"
                   alt="Nuxt3 Logo"
-                  class="cursor-pointer grayscale hover:grayscale-0 transition-all delay-100 w-auto h-auto"
+                  class="cursor-pointer grayscale hover:grayscale-0 dark:brightness-0 dark:invert-[1] dark:hover:invert-0 dark:hover:brightness-100 transition-all delay-100 w-[80%] md:w-auto h-auto"
                 />
               </li>
             </ul>
           </div>
         </div>
-        <div class="img-cover">
+        <div class="img-cover hidden md:block">
           <img
             src="/img/astro-lg 1.png"
             alt=""
-            class="w-auto h-auto object-contain"
+            class="w-[90%] xl:w-auto h-auto object-contain"
           />
         </div>
       </div>
       <div
-        class="absolute bg-primary dark:bg-opacity-45 rounded-3xl w-full h-[75%] z-0 top-0 left-0 overflow-hidden"
+        class="absolute bg-primary dark:bg-opacity-45 rounded-3xl w-[90%] md:w-[95%] xl:w-full h-[79%] md:h-[83%] xl:h-[75%] z-0 top-0 left-0 right-0 mx-auto overflow-hidden shadow-xl"
       >
         <img
           src="/img/hero-drop.svg"
           alt="Hero Drop"
-          class="absolute -right-[200px] -top-[230px]"
+          class="absolute -bottom-[300px] -right-20 sm:top-0 sm:-right-[300px] md:-right-[350px] xl:-right-[200px] md:-top-[100px] xl:-top-[230px]"
         />
         <img
           src="/img/hero-circle.svg"
           alt="Hero Circle"
-          class="absolute -left-[20px] -bottom-[20px]"
+          class="absolute -left-[20px] -bottom-[20px] hidden md:block"
         />
       </div>
     </div>
   </UContainer>
 
-  <UContainer>
-    <div class="flex py-32 gap-x-16">
-      <div class="w-1/3 relative pt-20">
+  <UContainer id="features">
+    <div class="flex flex-col md:flex-row py-24 md:py-32 gap-x-16">
+      <div class="w-full md:w-1/3 relative md:pt-20">
         <CommonContentBlock
           label="Feature"
           header="What we bring to the table?"
@@ -73,7 +76,7 @@
           width="519"
           height="555"
           viewBox="0 0 519 555"
-          class="absolute z-0 -top-20 -left-56 w-full h-full fill-[#f3f3f3] dark:fill-primary dark:opacity-10"
+          class="absolute z-0 -top-20 -left-32 md:-left-56 w-full h-full fill-[#f3f3f3] dark:fill-primary dark:opacity-10"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -84,7 +87,7 @@
           />
         </svg>
       </div>
-      <div class="w-2/3 overflow-hidden pb-20">
+      <div class="w-full md:w-2/3 overflow-hidden pb-20">
         <CommonFeatureCarousel />
       </div>
     </div>
@@ -92,28 +95,30 @@
 
   <div class="w-full overflow-hidden">
     <UContainer class="relative">
-      <div class="relative grid grid-cols-2 gap-x-11 pb-48">
+      <div class="relative grid md:grid-cols-2 gap-x-11 pb-32 md:pb-48">
         <div class="relative"></div>
-        <div class="relative pr-20">
+        <div class="relative md:pr-20">
           <CommonContentBlock
             class="mb-12"
             label="Creator"
-            header="Meet the<br>handsome creator..."
+            header="Meet the <br class='hidden md:block'>handsome creator..."
             description="Meet the genius behind the pixels. Crafting sleek designs, writing elegant code, and probably drinking too much coffee. Passionate about creating digital experiences that are as smooth as a well-written algorithm. If perfection had a portfolio, this would be it."
           />
           <h3 class="font-dm-serif text-xl mb-4">Contact me...</h3>
           <div class="flex gap-x-6 text-4xl">
             <a
               href="https://www.gudofabi.com"
-              class="ph-fill ph-globe-hemisphere-east hover:text-primary transition-colors delay-100"
+              target="_blank"
+              class="ph-fill ph-globe-hemisphere-east hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors delay-100"
             ></a>
             <a
               href="https://www.linkedin.com/in/gudofabi/"
-              class="ph-fill ph-linkedin-logo hover:text-primary transition-colors delay-100"
+              target="_blank"
+              class="ph-fill ph-linkedin-logo hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors delay-100"
             ></a>
             <a
               href="mailto:godofredocpanel@gmail.com"
-              class="ph-fill ph-mailbox hover:text-primary transition-colors delay-100"
+              class="ph-fill ph-mailbox hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors delay-100"
             ></a>
           </div>
         </div>
@@ -140,7 +145,7 @@
         height="575"
         viewBox="0 0 542 575"
         xmlns="http://www.w3.org/2000/svg"
-        class="absolute -bottom-40 z-0 -right-40 fill-[#f3f3f3] dark:fill-primary dark:opacity-10"
+        class="absolute -bottom-40 z-0 -right-64 md:-right-40 fill-[#f3f3f3] dark:fill-primary dark:opacity-10"
       >
         <path
           d="M284.364 225.322C293.209 219.679 295.806 207.934 290.164 199.088L247.093 131.566C241.451 122.72 244.048 110.975 252.894 105.332C261.739 99.6896 264.336 87.9445 258.693 79.0987L249.658 64.9338C244.015 56.088 246.612 44.3428 255.458 38.6997C264.303 33.0572 276.049 35.6538 281.692 44.4998L426.931 272.191C432.573 281.037 429.977 292.782 421.131 298.425C412.285 304.067 409.688 315.812 415.331 324.658L424.367 338.823C430.009 347.669 427.413 359.414 418.567 365.057C409.721 370.7 407.124 382.445 412.767 391.291L455.837 458.812C461.479 467.658 458.883 479.403 450.037 485.045C441.191 490.688 429.446 488.091 423.803 479.245L399.634 441.355C393.991 432.509 382.246 429.913 373.4 435.555C364.555 441.198 352.809 438.601 347.166 429.755L315.653 380.353C310.011 371.507 298.265 368.91 289.419 374.553C280.573 380.195 277.977 391.941 283.619 400.787L296.231 420.558C301.873 429.404 299.277 441.149 290.431 446.791C281.585 452.434 278.988 464.18 284.631 473.025L310.332 513.318C315.975 522.164 313.378 533.909 304.532 539.552C295.686 545.194 283.941 542.598 278.298 533.752L252.596 493.459C246.954 484.613 235.209 482.017 226.363 487.659C217.517 493.302 205.772 490.705 200.129 481.859L54.8897 254.169C49.2472 245.323 51.8438 233.578 60.6896 227.936C69.5354 222.293 81.2805 224.89 86.9237 233.736L112.625 274.028C118.268 282.874 130.013 285.471 138.859 279.828C147.705 274.186 150.302 262.441 144.659 253.595L118.958 213.303C113.315 204.457 115.912 192.712 124.758 187.069C133.604 181.427 136.2 169.682 130.558 160.836L117.946 141.063C112.304 132.218 114.9 120.473 123.746 114.83C132.592 109.188 144.337 111.784 149.98 120.63L181.493 170.032C187.136 178.878 198.882 181.475 207.727 175.832C216.572 170.19 228.318 172.786 233.96 181.632L258.129 219.522C263.772 228.368 275.518 230.965 284.364 225.322Z"

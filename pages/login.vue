@@ -1,33 +1,34 @@
 <template>
-  <div class="w-[300px] mx-auto flex flex-col">
-    <!-- <UCard :ui="{ body: { base: 'grid grid-cols-3' } }"> -->
-    <UCard>
-      <div class="space-y-4">
-        <UtilsFormValidation
-          ref="formValidation"
-          :rules="data_rules"
-          :model="data_form"
-        >
-          <UFormGroup label="Email" name="email">
-            <UInput v-model="data_form.email" />
-          </UFormGroup>
+  <div class="h-svh w-full">
+    <div class="h-full w-full">
+      <!-- <UCard :ui="{ body: { base: 'grid grid-cols-3' } }"> -->
+      <UCard class="w-[90%] md:w-[400px] mx-auto mt-20">
+        <div class="space-y-4">
+          <UtilsFormValidation
+            ref="formValidation"
+            :rules="data_rules"
+            :model="data_form"
+          >
+            <UFormGroup label="Email" name="email">
+              <UInput v-model="data_form.email" />
+            </UFormGroup>
 
-          <UFormGroup label="Password" name="password">
-            <UInput v-model="data_form.password" type="password" />
-          </UFormGroup>
+            <UFormGroup label="Password" name="password">
+              <UInput v-model="data_form.password" type="password" />
+            </UFormGroup>
 
-          <UButton
-            :loading="data_loading"
-            type="submit"
-            label="Login"
-            color="gray"
-            block
-            @click="func_loginViaEmail"
-          />
-        </UtilsFormValidation>
-      </div>
+            <UButton
+              :loading="data_loading"
+              type="submit"
+              label="Login"
+              color="gray"
+              block
+              @click="func_loginViaEmail"
+            />
+          </UtilsFormValidation>
+        </div>
 
-      <!-- <UDivider label="OR" orientation="vertical" />
+        <!-- <UDivider label="OR" orientation="vertical" />
 
       <div class="space-y-4 flex flex-col justify-center">
         <UButton
@@ -43,7 +44,8 @@
           block
         />
       </div> -->
-    </UCard>
+      </UCard>
+    </div>
   </div>
 </template>
 

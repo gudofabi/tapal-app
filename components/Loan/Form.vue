@@ -1,7 +1,7 @@
 <template>
   <USlideover v-model="data_show" prevent-close>
     <UCard
-      class="flex flex-col flex-1"
+      class="flex flex-col flex-1 overflow-scroll h-[1000px]"
       :ui="{
         body: { base: 'flex-1' },
         ring: '',
@@ -174,8 +174,6 @@ watch(
       lead_generator_id: data.lead_generator ? data.lead_generator?.id : null,
       agent_id: data.agent ? data.agent?.id : null,
     };
-
-    console.log(data_form.value);
   }
 );
 
@@ -193,7 +191,6 @@ const formValidation = ref();
 
 const func_submitForm = async () => {
   const isValid = await formValidation.value.validate();
-  data_loading.value = true;
   if (!isValid) {
     return;
   }
@@ -205,6 +202,7 @@ const func_submitForm = async () => {
   };
 
   try {
+    data_loading.value = true;
     const response = props.isEdit
       ? await updateLoan(newData)
       : await createLoan(newData);
