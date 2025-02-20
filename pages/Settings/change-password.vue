@@ -33,6 +33,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: "Chage Password | Settings",
+  ogTitle: "Change Password",
+});
+
 definePageMeta({
   layout: "settings",
 });

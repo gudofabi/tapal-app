@@ -157,4 +157,11 @@
     </UContainer>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useSeoMeta({
+  title: "Tapwal | Home",
+  ogTitle: "Tapwal",
+  description: "Tapwal is my portfolio website, that manage loan.",
+  ogDescription: "Tapwal is my portfolio website, that manage loan.",
+});
+</script>

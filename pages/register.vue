@@ -63,6 +63,13 @@
   </div>
 </template>
 <script setup lang="ts">
+useSeoMeta({
+  title: "Register | Tapwal",
+  ogTitle: "Register",
+  description: "Tapwal registration page, where you can create an account.",
+  ogDescription: "Tapwal registration page, where you can create an account.",
+});
+
 import {
   required,
   email,
