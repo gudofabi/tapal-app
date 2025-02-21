@@ -8,10 +8,13 @@
 <script setup lang="ts">
 const loadingStore = useLoadingStore();
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
   loadingStore.startLoading();
+
+  await loadingStore.preloadImages();
+
   setTimeout(() => {
-    loadingStore.stoptLoading();
-  }, 3000);
+    loadingStore.stopLoading();
+  }, 500);
 });
 </script>
