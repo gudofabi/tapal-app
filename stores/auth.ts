@@ -56,7 +56,9 @@ export const useAuthStore = defineStore("authStore", () => {
         const { data } = response;
         userData.value = data;
       })
-      .catch((err) => {})
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => (userLoading.value = false));
   };
 
@@ -105,6 +107,20 @@ export const useAuthStore = defineStore("authStore", () => {
     searchQuery.value = query;
   };
 
+  const forgotPassword = async ($params: any) => {
+    return await useSanctumFetch(`/api/forgot-password`, {
+      method: "post",
+      body: $params,
+    });
+  };
+
+  const resetPassword = async ($params: any) => {
+    return await useSanctumFetch(`/api/reset-password`, {
+      method: "post",
+      body: $params,
+    });
+  };
+
   return {
     register,
     fetchUsers,
@@ -115,6 +131,8 @@ export const useAuthStore = defineStore("authStore", () => {
     updateProfile,
     updatePassword,
     deleteUser,
+    forgotPassword,
+    resetPassword,
     getUsers,
     getUsersByRole,
     getUserData,
