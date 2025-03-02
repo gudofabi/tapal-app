@@ -3,7 +3,13 @@
     <div class="h-full w-full">
       <!-- <UCard :ui="{ body: { base: 'grid grid-cols-3' } }"> -->
       <UCard class="w-[90%] md:w-[400px] mx-auto mt-20">
-        <div class="space-y-4">
+        <h3 class="text-2xl mb-2 font-bold font-dm-serif">
+          Create Your Account
+        </h3>
+        <p class="text-base text-gray-500">
+          Sign up to get started in just a few steps.
+        </p>
+        <div class="space-y-4 mt-6">
           <UtilsFormValidation
             ref="formValidation"
             :rules="data_rules"

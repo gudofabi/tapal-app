@@ -3,7 +3,11 @@
     <div class="h-full w-full">
       <!-- <UCard :ui="{ body: { base: 'grid grid-cols-3' } }"> -->
       <UCard class="w-[90%] md:w-[400px] mx-auto mt-20">
-        <div class="space-y-4">
+        <h3 class="text-2xl mb-2 font-bold font-dm-serif">Welcome Back!</h3>
+        <p class="text-base text-gray-500">
+          Enter your credentials to access your account.
+        </p>
+        <div class="space-y-4 mt-6">
           <UtilsFormValidation
             ref="formValidation"
             :rules="data_rules"
@@ -17,6 +21,9 @@
               <UInput v-model="data_form.password" type="password" />
             </UFormGroup>
 
+            <p class="py-1 text-right hover:text-primary text-sm">
+              <RouterLink to="/forgot-password"> Forgot Password? </RouterLink>
+            </p>
             <UButton
               :loading="data_loading"
               type="submit"
